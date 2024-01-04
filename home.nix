@@ -39,10 +39,9 @@
     pkgs.ponysay
     pkgs.cowsay
     pkgs.curl
-    pkgs.zsh
-    pkgs.oh-my-zsh
     pkgs.fzf
-    pkgs.git
+    pkgs.htop
+    pkgs.kakoune
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -91,4 +90,10 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.zsh.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "Mads";
+    userEmail = "mads.eckardt@gmail.com";
+  };
 }
