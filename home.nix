@@ -53,7 +53,15 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".tmux.conf".source = dotfiles/.tmux.conf;
+    ".config/tmux/tmux.conf".source = dotfiles/.tmux.conf;
+
+    ".tmux/plugins/tpm" = {
+    source = builtins.fetchGit {
+      url = "https://github.com/tmux-plugins/tpm.git";
+      rev = "99469c4a9b1ccf77fade25842dc7bafbc8ce9946";
+      #sha256 = "hash-of-the-tarball"; # Optional, but recommended for integrity verification
+    };
+  };
   };
 
   # Home Manager can also manage your environment variables through
