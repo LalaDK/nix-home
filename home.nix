@@ -38,6 +38,11 @@
     pkgs.tree
     pkgs.ponysay
     pkgs.cowsay
+    pkgs.curl
+    pkgs.zsh
+    pkgs.oh-my-zsh
+    pkgs.fzf
+    pkgs.git
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -56,12 +61,12 @@
     ".config/tmux/tmux.conf".source = dotfiles/.tmux.conf;
 
     ".tmux/plugins/tpm" = {
-    source = builtins.fetchGit {
-      url = "https://github.com/tmux-plugins/tpm.git";
-      rev = "99469c4a9b1ccf77fade25842dc7bafbc8ce9946";
-      #sha256 = "hash-of-the-tarball"; # Optional, but recommended for integrity verification
+      source = builtins.fetchGit {
+        url = "https://github.com/tmux-plugins/tpm.git";
+        rev = "99469c4a9b1ccf77fade25842dc7bafbc8ce9946";
+        #sha256 = "hash-of-the-tarball"; # Optional, but recommended for integrity verification
+      };
     };
-  };
   };
 
   # Home Manager can also manage your environment variables through
@@ -85,4 +90,5 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.zsh.enable = true;
 }
