@@ -1,10 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mads";
-  home.homeDirectory = "/home/mads";
+  #home.homeDirectory = "/home/mads";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then
+                        "/Users/mads"
+                      else
+                        "/home/mads";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -14,6 +18,12 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
+
+  myNixpkgs = import (builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/ce6aa13369b667ac2542593170993504932eb836.tar.gz";
+    #sha256 = "ce6aa13369b667ac2542593170993504932eb836"; # Specify the corresponding sha256 hash
+
+  }) { };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -41,6 +51,7 @@
     pkgs.curl
     pkgs.fzf
     pkgs.htop
+    pkgs.ripgrep
     pkgs.kakoune
   ];
 
@@ -58,6 +69,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     ".config/tmux/tmux.conf".source = dotfiles/.tmux.conf;
+    ".config/kak/kakrc".source = dotfiles/kakrc;
 
     ".tmux/plugins/tpm" = {
       source = builtins.fetchGit {
@@ -89,7 +101,18 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.zsh.enable = true;
+  programs = {
+      zsh = {
+        enable = true;
+        oh-my-zsh = {
+          enable = true;
+          theme = "robbyrussell";
+          plugins = [
+        	  "git"
+          ];
+        };
+      };
+    };
 
   programs.git = {
     enable = true;

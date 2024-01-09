@@ -1,0 +1,60 @@
+add-highlighter global/ number-lines
+add-highlighter global/ show-whitespaces
+
+evaluate-commands %sh{
+  plugins="$kak_config/plugins"
+  mkdir -p "$plugins"
+  [ ! -e "$plugins/plug.kak" ] && \
+    git clone -q https://github.com/andreyorst/plug.kak.git "$plugins/plug.kak"
+    printf "%s\n" "source '$plugins/plug.kak/rc/plug.kak'"
+}
+plug "andreyorst/plug.kak" noload
+plug "enricozb/tabs.kak"
+plug "andreyorst/fzf.kak" config %{
+  map global normal <c-p> ': fzf-mode<ret>'
+} defer fzf-file %{
+  set-option global fzf_file_command 'rg' # 'ag', 'fd', or 'find'
+} defer fzf-grep %{
+  set-option global fzf_grep_command 'rg' # 'ag', or 'find'
+}
+
+plug "gustavo-hms/luar" %{
+  require-module luar
+}
+set-option global indentwidth 2
+set-option global tabstop 2
+plug "andreyorst/smarttab.kak" defer smarttab %{
+  set-option global softtabstop 2
+  } config %{
+    hook global BufOpenFile .* expandtab
+    hook global BufNewFile  .* expandtab
+}
+
+
+tabs-recommended-keys
+
+plug "caksoylar/kakoune-mysticaltutor" theme %{ colorscheme mysticaltutor }
+map global insert <tab> '<a-;><a-gt>'
+map global insert <s-tab> '<a-;><a-lt>'
+
+# plug "kak-lsp/kak-lsp" do %{
+#     cargo install --locked --force --path .
+#     # optional: if you want to use specific language servers
+#     mkdir -p ~/.config/kak-lsp
+#     cp -n kak-lsp.toml ~/.config/kak-lsp/
+# }
+# 
+# map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
+# map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet 
+# placeholder'
+# map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+# map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+# map global object e '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
+# map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
+#lsp-enable
+#lsp-auto-signature-help-enable
+#lsp-auto-hover-insert-mode-enable
+#lsp-auto-hover-enable
+#set global lsp_hover_anchor true
+
+map global normal <s-p> ':repl-send-text<ret>'
