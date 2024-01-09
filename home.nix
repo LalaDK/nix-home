@@ -19,12 +19,6 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  myNixpkgs = import (builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/ce6aa13369b667ac2542593170993504932eb836.tar.gz";
-    #sha256 = "ce6aa13369b667ac2542593170993504932eb836"; # Specify the corresponding sha256 hash
-
-  }) { };
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -53,6 +47,9 @@
     pkgs.htop
     pkgs.ripgrep
     pkgs.kakoune
+    pkgs.ruby_2_7
+    pkgs.nodejs_20
+    pkgs.yarn
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
