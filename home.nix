@@ -3,12 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "mads";
-  #home.homeDirectory = "/home/mads";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then
-                        "/Users/mads"
-                      else
-                        "/home/mads";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -38,6 +34,10 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    pkgs.gnused
+    pkgs.gnugrep
+    pkgs.findutils
+    pkgs.cargo
     pkgs.tmux
     pkgs.tree
     pkgs.ponysay
