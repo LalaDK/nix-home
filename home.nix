@@ -48,8 +48,10 @@
     pkgs.ripgrep
     pkgs.kakoune
     pkgs.ruby_2_7
-    pkgs.nodejs_20
-    pkgs.yarn
+    pkgs.openssl_1_1
+    pkgs.openssl_1_1.dev
+    pkgs.nodejs_21
+    pkgs.python2
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -94,6 +96,8 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    GEM_PATH="$HOME/.gem";
+    GEM_HOME="$HOME/.gem";
   };
 
   # Let Home Manager install and manage itself.
