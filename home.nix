@@ -52,6 +52,7 @@
     pkgs.openssl_1_1.dev
     pkgs.nodejs_21
     pkgs.python2
+    pkgs.zellij
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
