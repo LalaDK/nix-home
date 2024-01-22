@@ -45,6 +45,7 @@
     pkgs.curl
     pkgs.fzf
     pkgs.htop
+    pkgs.nano
     pkgs.ripgrep
     pkgs.kakoune
     pkgs.ruby_2_7
