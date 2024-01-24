@@ -25,6 +25,12 @@
     pkgs.zellij
   ];
 
+  system.defaults = {
+    dock = {
+      orientation = "left";
+    };
+  };
+
   programs.zsh.enable = true;
 
   services.postgresql = {
